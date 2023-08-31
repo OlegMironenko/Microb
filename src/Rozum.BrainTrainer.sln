@@ -26,4 +26,7 @@ Global
 		{7CB0A9F3-0DED-4186-8F0B-0FD2D64EEFCA} = {36526427-8B58-413B-B318-15C1F663B747}
 		{A65361B8-A4B8-40DC-86CA-69516A6D346C} = {7CB0A9F3-0DED-4186-8F0B-0FD2D64EEFCA}
 	EndGlobalSection
+	GlobalSection(RiderSharedRunConfigurations) = postSolution
+		File = Docker Image.run.xml
+	EndGlobalSection
 EndGlobal
