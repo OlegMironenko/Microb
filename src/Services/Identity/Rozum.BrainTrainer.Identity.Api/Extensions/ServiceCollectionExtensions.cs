@@ -1,16 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using Rozum.BrainTrainer.Identity.Api.Persistence;
 
 namespace Rozum.BrainTrainer.Identity.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddRozumIdentity(this IServiceCollection services)
+    public static IServiceCollection AddRozumIdentity(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddOpenIddict()
             .AddCore(coreBuilder =>
                 {
                     coreBuilder.UseEntityFrameworkCore()
-                        .UseDbContext<DbContext>();
+                        .UseDbContext<UserDbContext>()
+                        .ReplaceDefaultEntities<Guid>();
                 }
             )
             .AddServer(serverBuilder =>
@@ -31,16 +33,16 @@ public static class ServiceCollectionExtensions
                         .EnableAuthorizationEndpointPassthrough();
                 }
             )
-            .AddValidation(configuration =>
+            .AddValidation(builder =>
             {
-                configuration.UseLocalServer();
-                configuration.UseAspNetCore();
+                builder.UseLocalServer();
+                builder.UseAspNetCore();
             });
 
-        services.AddDbContext<DbContext>(options =>
+        services.AddDbContext<UserDbContext>(options =>
             {
-                options.UseInMemoryDatabase(nameof(DbContext));
-                options.UseOpenIddict();
+                options.UseNpgsql(configuration.GetConnectionString("UsersDatabase"));
+                options.UseOpenIddict<Guid>();
             }
         );
 

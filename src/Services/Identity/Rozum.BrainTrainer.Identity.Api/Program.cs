@@ -5,6 +5,7 @@ using Rozum.BrainTrainer.Identity.Api.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddHealthChecks();
 
 builder.Services.AddAuthentication();
 
@@ -17,7 +18,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddRozumIdentity();
+builder.Services.AddRozumIdentity(builder.Configuration);
 
 var app = builder.Build();
 
@@ -31,6 +32,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/healthi");
 
 using (var scope = app.Services.CreateScope())
 {
