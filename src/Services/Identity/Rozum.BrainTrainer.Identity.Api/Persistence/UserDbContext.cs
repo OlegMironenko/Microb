@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Rozum.BrainTrainer.Identity.Api.Extensions;
 using Rozum.BrainTrainer.Identity.Api.Persistence.Entities;
 

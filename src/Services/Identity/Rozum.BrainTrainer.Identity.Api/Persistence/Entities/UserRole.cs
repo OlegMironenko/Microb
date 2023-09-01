@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Rozum.BrainTrainer.Identity.Api.Persistence.Entities;
 

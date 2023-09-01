@@ -1,9 +1,12 @@
+using HealthChecks.ApplicationStatus.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using OpenIddict.Abstractions;
 using Rozum.BrainTrainer.Identity.Api.Persistence;
 using Rozum.BrainTrainer.Identity.Api.Persistence.Entities;
 using Rozum.BrainTrainer.Identity.Api.Persistence.Stores;
+using HealthChecks.UI.Core;
 
 namespace Rozum.BrainTrainer.Identity.Api.Extensions;
 
@@ -76,6 +79,18 @@ public static class ServiceCollectionExtensions
             .AddUserStore<UserStore>()
             .AddRoleStore<RoleStore>()
             .AddUserManager<UserManager<User>>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddRozumHealthCheck(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddHealthChecks()
+            .AddApplicationStatus()
+            .AddNpgSql(configuration.GetConnectionString("UsersDatabase"));
+
+        services.AddHealthChecksUI(setupSettings: setup => { setup.SetEvaluationTimeInSeconds(5); })
+            .AddInMemoryStorage();
 
         return services;
     }
