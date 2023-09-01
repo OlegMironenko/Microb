@@ -11,6 +11,9 @@ services:
       - rozum-network
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      rozum-users-db:
+        condition: service_healthy
 
   rozum-users-db:
     container_name: rozum-users-db
@@ -23,10 +26,16 @@ services:
     environment:
       POSTGRES_USER: rozum-admin
       POSTGRES_PASSWORD: Qwertyuiop1!
+      POSTGRES_DB: users
     volumes:
       - type: bind
-        source: ../volumes/database/user
+        source: ../volumes/database/users
         target: /var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   rozum-network:

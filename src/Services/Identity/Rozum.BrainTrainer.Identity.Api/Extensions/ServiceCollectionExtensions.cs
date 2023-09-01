@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OpenIddict.Abstractions;
 using Rozum.BrainTrainer.Identity.Api.Persistence;
+using Rozum.BrainTrainer.Identity.Api.Persistence.Entities;
+using Rozum.BrainTrainer.Identity.Api.Persistence.Stores;
 
 namespace Rozum.BrainTrainer.Identity.Api.Extensions;
 
@@ -17,16 +21,24 @@ public static class ServiceCollectionExtensions
             )
             .AddServer(serverBuilder =>
                 {
-                    //serverBuilder.AllowClientCredentialsFlow();
                     serverBuilder.AllowAuthorizationCodeFlow()
                         .RequireProofKeyForCodeExchange();
 
-                    serverBuilder.SetAuthorizationEndpointUris("authorize")
-                        .SetTokenEndpointUris("token");
+                    serverBuilder.SetAuthorizationEndpointUris("/authorize")
+                        .SetTokenEndpointUris("/token");
+
+                    serverBuilder.UseReferenceAccessTokens();
+                    serverBuilder.UseReferenceRefreshTokens();
+
+                    serverBuilder.RegisterScopes(OpenIddictConstants.Permissions.Scopes.Email,
+                        OpenIddictConstants.Permissions.Scopes.Profile,
+                        OpenIddictConstants.Permissions.Scopes.Roles);
+
+                    serverBuilder.SetAccessTokenLifetime(TimeSpan.FromMinutes(30));
+                    serverBuilder.SetRefreshTokenLifetime(TimeSpan.FromDays(7));
 
                     serverBuilder.AddDevelopmentEncryptionCertificate()
                         .AddDevelopmentSigningCertificate();
-                    serverBuilder.DisableAccessTokenEncryption();
 
                     serverBuilder.UseAspNetCore()
                         .EnableTokenEndpointPassthrough()
@@ -39,12 +51,31 @@ public static class ServiceCollectionExtensions
                 builder.UseAspNetCore();
             });
 
+        services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = OpenIddictConstants.Schemes.Bearer;
+            options.DefaultChallengeScheme = OpenIddictConstants.Schemes.Bearer;
+        });
+
         services.AddDbContext<UserDbContext>(options =>
             {
                 options.UseNpgsql(configuration.GetConnectionString("UsersDatabase"));
                 options.UseOpenIddict<Guid>();
             }
         );
+
+        services.Configure<IdentityOptions>(options =>
+        {
+            options.ClaimsIdentity.UserNameClaimType = OpenIddictConstants.Claims.Name;
+            options.ClaimsIdentity.UserIdClaimType = OpenIddictConstants.Claims.Subject;
+            options.ClaimsIdentity.RoleClaimType = OpenIddictConstants.Claims.Role;
+        });
+
+        services.AddIdentity<User, Role>()
+            .AddSignInManager()
+            .AddUserStore<UserStore>()
+            .AddRoleStore<RoleStore>()
+            .AddUserManager<UserManager<User>>();
 
         return services;
     }
