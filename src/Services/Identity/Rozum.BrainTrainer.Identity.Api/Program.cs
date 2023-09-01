@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
-using Rozum.BrainTrainer.Identity.Api;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Rozum.BrainTrainer.Identity.Api.Extensions;
 using Rozum.BrainTrainer.Identity.Api.Persistence;
 
@@ -18,6 +17,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddRozumHealthCheck(builder.Configuration);
 builder.Services.AddRozumIdentity(builder.Configuration);
 
 var app = builder.Build();
@@ -28,11 +28,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapHealthChecks("/healthz", new HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecksUI();
+
 app.MapControllers();
-app.MapHealthChecks("/healthi");
 
 using (var scope = app.Services.CreateScope())
 {
