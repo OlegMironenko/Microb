@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>disable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Properties\launchSettings.json" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <PackageReference Include="FluentAssertions" Version="6.12.0" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+      <PackageReference Include="xunit.core" Version="2.5.0" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Services\Identity\Rozum.BrainTrainer.Identity.Api\Rozum.BrainTrainer.Identity.Api.csproj" />
+    </ItemGroup>
+
+</Project>
