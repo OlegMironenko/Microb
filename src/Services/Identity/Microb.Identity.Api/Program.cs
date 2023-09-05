@@ -1,12 +1,11 @@
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microb.Identity.Api.Extensions;
 using Microb.Identity.Api.Persistence;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddHealthChecks();
 
 // builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 //     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
@@ -17,8 +16,8 @@ builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMicrobHealthCheck(builder.Configuration);
 builder.Services.AddMicrobIdentity(builder.Configuration);
+builder.Services.AddMicrobHealthCheck(builder.Configuration);
 
 var app = builder.Build();
 
@@ -33,12 +32,11 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapHealthChecks("/healthz", new HealthCheckOptions
+app.UseHealthChecks("/healthcheck", new HealthCheckOptions
 {
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
-app.MapHealthChecksUI();
 
 app.MapControllers();
 
