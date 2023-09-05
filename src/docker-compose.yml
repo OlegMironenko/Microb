@@ -2,11 +2,21 @@ version: '3.8'
 
 services:
 
+  microb-api-gateway:
+    container_name: microb-api-gateway
+    image: microb-apigateway:1.0.0
+    ports:
+      - "8080:80"
+    networks:
+      - microb-network
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
   microb-identity-api:
     container_name: microb-identity-api
     image: microb-identity:1.0.0
     ports:
-      - "5135:80"
+      - "8088:80"
     networks:
       - microb-network
     environment:

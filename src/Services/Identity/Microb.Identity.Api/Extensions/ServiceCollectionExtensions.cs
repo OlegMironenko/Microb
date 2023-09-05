@@ -1,12 +1,10 @@
 using HealthChecks.ApplicationStatus.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using OpenIddict.Abstractions;
 using Microb.Identity.Api.Persistence;
 using Microb.Identity.Api.Persistence.Entities;
 using Microb.Identity.Api.Persistence.Stores;
-using HealthChecks.UI.Core;
 
 namespace Microb.Identity.Api.Extensions;
 
@@ -86,11 +84,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMicrobHealthCheck(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHealthChecks()
-            .AddApplicationStatus()
-            .AddNpgSql(configuration.GetConnectionString("UsersDatabase"));
-
-        services.AddHealthChecksUI(setupSettings: setup => { setup.SetEvaluationTimeInSeconds(5); })
-            .AddInMemoryStorage();
+            .AddApplicationStatus(name: "identity-api")
+            .AddNpgSql(configuration.GetConnectionString("UsersDatabase"), "SELECT 1", name: "identity-db");
 
         return services;
     }
