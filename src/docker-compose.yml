@@ -15,8 +15,6 @@ services:
   microb-identity-api:
     container_name: microb-identity-api
     image: microb-identity:1.0.0
-    ports:
-      - "8088:80"
     networks:
       - microb-network
     environment:
