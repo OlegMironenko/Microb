@@ -4,5 +4,8 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 *.idea
-/volumes
+volumes
 *.user
+*.vscode
+*.angular
+node_modules
