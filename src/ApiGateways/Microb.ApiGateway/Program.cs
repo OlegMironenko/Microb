@@ -1,5 +1,4 @@
 using Microb.ApiGateway.Extensions;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +11,9 @@ var app = builder.Build();
 
 app.MapReverseProxy();
 
-app.MapHealthChecks("/liveness", new HealthCheckOptions
+app.UseHealthChecksUI(options =>
 {
-    Predicate = r => r.Name.Contains("self")
-});
-
-app.MapHealthChecksUI(options =>
-{
-    options.UIPath = "/healthcheck";
+    options.UIPath = "/healthcheck-ui";
 });
 
 await app.RunAsync();
