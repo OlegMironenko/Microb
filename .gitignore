@@ -9,3 +9,4 @@ volumes
 *.vscode
 *.angular
 node_modules
+/src/Docker Image.run.xml
