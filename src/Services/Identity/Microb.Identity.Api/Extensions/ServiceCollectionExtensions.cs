@@ -12,6 +12,13 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddMicrobIdentity(this IServiceCollection services, IConfiguration configuration)
     {
+// builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+//     {
+//         options.LoginPath = "/account/login";
+//     });
+
+
         services.AddOpenIddict()
             .AddCore(coreBuilder =>
                 {
@@ -81,11 +88,18 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddMicrobHealthCheck(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddMicrobHealthCheck(this IServiceCollection services,
+        IConfiguration configuration)
     {
+        var usersDbConnectionString = configuration.GetConnectionString("UsersDatabase");
+        if (string.IsNullOrWhiteSpace(usersDbConnectionString))
+        {
+            throw new ArgumentException("Connection string for UsersDatabase does not set");
+        }
+
         services.AddHealthChecks()
             .AddApplicationStatus(name: "identity-api")
-            .AddNpgSql(configuration.GetConnectionString("UsersDatabase"), "SELECT 1", name: "identity-db");
+            .AddNpgSql(usersDbConnectionString, "SELECT 1", name: "identity-db");
 
         return services;
     }

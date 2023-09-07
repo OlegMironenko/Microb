@@ -31,10 +31,8 @@ services:
       - "15432:5432"
     networks:
       - microb-network
-    environment:
-      POSTGRES_USER: microb-admin
-      POSTGRES_PASSWORD: Qwertyuiop1!
-      POSTGRES_DB: users
+    env_file:
+      - usersdb.env
     volumes:
       - type: bind
         source: ../volumes/database/users

@@ -3,16 +3,11 @@ using Microb.Identity.Api.Extensions;
 using Microb.Identity.Api.Persistence;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
+DotNetEnv.Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
-// builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-//     {
-//         options.LoginPath = "/account/login";
-//     });
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
