@@ -28,14 +28,6 @@ public class UserDbContext : DbContext
 
         modelBuilder.Entity<UserRole>()
             .HasKey(ur => new { ur.UserId, ur.RoleId });
-        // modelBuilder.Entity<UserRole>()
-        //     .HasOne(ur => ur.User)
-        //     .WithMany(ur => ur.UserRoles)
-        //     .HasForeignKey(ur => ur.UserId);
-        // modelBuilder.Entity<UserRole>()
-        //     .HasOne(ur => ur.Role)
-        //     .WithMany(ur => ur.UserRoles)
-        //     .HasForeignKey(ur => ur.RoleId);
 
         foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {
