@@ -1,8 +1,6 @@
-using FluentAssertions;
-using Microb.Identity.Api.Extensions;
-using Xunit;
+using Microb.ApiGateway.Extensions;
 
-namespace Microb.Identity.Api.UnitTests.Extensions;
+namespace Microb.ApiGateway.UnitTests.Extensions;
 
 public class StringExtensionsToSnakeCase
 {

@@ -11,14 +11,6 @@ services:
       - microb-network
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-
-  microb-identity-api:
-    container_name: microb-identity-api
-    image: microb-identity:1.0.0
-    networks:
-      - microb-network
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
     depends_on:
       microb-users-db:
         condition: service_healthy

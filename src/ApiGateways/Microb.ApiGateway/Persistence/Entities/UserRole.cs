@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Microb.Identity.Api.Persistence.Entities;
+namespace Microb.ApiGateway.Persistence.Entities;
 
 public class UserRole
 {

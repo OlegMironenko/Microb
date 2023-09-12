@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace Microb.Identity.Api.Extensions;
+namespace Microb.ApiGateway.Extensions;
 
 public static class StringExtensions
 {

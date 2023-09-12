@@ -5,6 +5,8 @@
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <OutputType>Library</OutputType>
+        <AssemblyName>Microb.ApiGateway.UnitTests</AssemblyName>
+        <RootNamespace>Microb.ApiGateway.UnitTests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,7 +23,7 @@
 
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Services\Identity\Microb.Identity.Api\Microb.Identity.Api.csproj" />
+      <ProjectReference Include="..\..\src\ApiGateways\Microb.ApiGateway\Microb.ApiGateway.csproj" />
     </ItemGroup>
 
 </Project>

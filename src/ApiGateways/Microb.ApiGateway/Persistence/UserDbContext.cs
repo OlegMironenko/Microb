@@ -1,8 +1,8 @@
+using Microb.ApiGateway.Extensions;
+using Microb.ApiGateway.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microb.Identity.Api.Extensions;
-using Microb.Identity.Api.Persistence.Entities;
 
-namespace Microb.Identity.Api.Persistence;
+namespace Microb.ApiGateway.Persistence;
 
 public class UserDbContext : DbContext
 {

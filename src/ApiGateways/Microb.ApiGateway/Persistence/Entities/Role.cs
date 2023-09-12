@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Microb.Identity.Api.Persistence.Entities;
+namespace Microb.ApiGateway.Persistence.Entities;
 
 public class Role : IdentityRole<Guid>
 {

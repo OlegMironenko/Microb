@@ -10,3 +10,4 @@ volumes
 *.angular
 node_modules
 /src/Docker Image.run.xml
+package-lock.json

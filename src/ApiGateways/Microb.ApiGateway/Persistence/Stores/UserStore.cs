@@ -1,7 +1,7 @@
+using Microb.ApiGateway.Persistence.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microb.Identity.Api.Persistence.Entities;
 
-namespace Microb.Identity.Api.Persistence.Stores;
+namespace Microb.ApiGateway.Persistence.Stores;
 
 public class UserStore : IUserStore<User>
 {
