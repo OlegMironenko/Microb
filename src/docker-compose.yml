@@ -6,42 +6,33 @@ services:
     container_name: microb-api-gateway
     image: microb-apigateway:1.0.0
     ports:
-      - "8080:80"
+      - "8081:443"
     networks:
       - microb-network
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "https://+:443;http://+80"
+      ASPNETCORE_HTTP_PORTS: 80
+      ASPNETCORE_HTTPS_PORTS: 443
+      ASPNETCORE_Kestrel__Certificates__Default__Password: Qwertyuiop1!
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/Microb.ApiGateway.pfx
+    volumes:
+      - ../https:/https:z
 
-  microb-identity-api:
-    container_name: microb-identity-api
-    image: microb-identity:1.0.0
-    networks:
-      - microb-network
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
-    depends_on:
-      microb-users-db:
-        condition: service_healthy
-
-  microb-users-db:
-    container_name: microb-users-db
-    image: postgres:latest
-    restart: always
-    ports:
-      - "15432:5432"
-    networks:
-      - microb-network
+  microb-keycloak-server:
+    container_name: microb-keycloak-server
+    image: keycloak/keycloak:latest
     env_file:
-      - usersdb.env
+      - keycloak.env
+    ports:
+      - "8090:8080"
+    networks:
+      - microb-network
+    command: start-dev
     volumes:
       - type: bind
-        source: ../volumes/database/users
-        target: /var/lib/postgresql/data
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+        source: ../volumes/keycloak/data
+        target: /opt/keycloak/data/
 
 networks:
   microb-network:

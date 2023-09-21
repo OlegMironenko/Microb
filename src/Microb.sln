@@ -14,13 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{7C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A45DF8E0-88F6-475D-9546-A44282FABB6E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microb.Identity.Api.UnitTests", "..\tests\Microb.Identity.Api.UnitTests\Microb.Identity.Api.UnitTests.csproj", "{33212EFD-84B2-4381-A5E3-3B03A3172A95}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microb.Identity.Api", "Services\Identity\Microb.Identity.Api\Microb.Identity.Api.csproj", "{D7C16737-818B-4F80-9554-104ED9AA8C78}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{AA2B3579-B238-49D7-A2ED-7FDA21F46208}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microb.ApiGateway", "ApiGateways\Microb.ApiGateway\Microb.ApiGateway.csproj", "{3D7BFA07-2FC2-4C2B-8114-A008EC76C73F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{1341265A-1DD0-4A56-BA0F-A0DD701D0080}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microb.HealthChecks.Keycloak", "Shared\Microb.HealthChecks.Keycloak\Microb.HealthChecks.Keycloak.csproj", "{68C0E352-908F-4C25-921E-38DA09DC5D01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,18 +28,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{33212EFD-84B2-4381-A5E3-3B03A3172A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33212EFD-84B2-4381-A5E3-3B03A3172A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33212EFD-84B2-4381-A5E3-3B03A3172A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33212EFD-84B2-4381-A5E3-3B03A3172A95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7C16737-818B-4F80-9554-104ED9AA8C78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7C16737-818B-4F80-9554-104ED9AA8C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7C16737-818B-4F80-9554-104ED9AA8C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7C16737-818B-4F80-9554-104ED9AA8C78}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D7BFA07-2FC2-4C2B-8114-A008EC76C73F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D7BFA07-2FC2-4C2B-8114-A008EC76C73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D7BFA07-2FC2-4C2B-8114-A008EC76C73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D7BFA07-2FC2-4C2B-8114-A008EC76C73F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68C0E352-908F-4C25-921E-38DA09DC5D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68C0E352-908F-4C25-921E-38DA09DC5D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68C0E352-908F-4C25-921E-38DA09DC5D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68C0E352-908F-4C25-921E-38DA09DC5D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,10 +43,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{36526427-8B58-413B-B318-15C1F663B747} = {FA94BFB8-248B-455A-93EC-2EFD4FC0BEB9}
 		{7CB0A9F3-0DED-4186-8F0B-0FD2D64EEFCA} = {36526427-8B58-413B-B318-15C1F663B747}
-		{33212EFD-84B2-4381-A5E3-3B03A3172A95} = {A45DF8E0-88F6-475D-9546-A44282FABB6E}
-		{D7C16737-818B-4F80-9554-104ED9AA8C78} = {7CB0A9F3-0DED-4186-8F0B-0FD2D64EEFCA}
 		{AA2B3579-B238-49D7-A2ED-7FDA21F46208} = {FA94BFB8-248B-455A-93EC-2EFD4FC0BEB9}
 		{3D7BFA07-2FC2-4C2B-8114-A008EC76C73F} = {AA2B3579-B238-49D7-A2ED-7FDA21F46208}
+		{1341265A-1DD0-4A56-BA0F-A0DD701D0080} = {FA94BFB8-248B-455A-93EC-2EFD4FC0BEB9}
+		{68C0E352-908F-4C25-921E-38DA09DC5D01} = {1341265A-1DD0-4A56-BA0F-A0DD701D0080}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5598348D-D006-4EFF-B890-8D514845508C}
